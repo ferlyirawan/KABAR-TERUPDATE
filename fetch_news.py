@@ -77,7 +77,7 @@ def main():
     if not semua:
         print("Tidak ada berita terambil; news.json tidak diubah.")
         return
-    with open("docs/news.json", "w", encoding="utf-8") as f:
+    with open("news.json", "w", encoding="utf-8") as f:
         json.dump({"diperbarui": int(time.time()), "berita": semua[:MAKS_TOTAL]}, f, ensure_ascii=False)
     print("Tersimpan:", min(len(semua), MAKS_TOTAL), "berita")
 

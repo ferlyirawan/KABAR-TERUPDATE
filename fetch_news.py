@@ -5,14 +5,12 @@ import feedparser, requests
 
 # Tambah/ubah sumber di sini. Buka URL RSS di browser dulu untuk memastikan masih aktif.
 FEEDS = [
-    FEEDS = [
     {"sumber": "Antara",        "kategori": "Berita",    "url": "https://www.antaranews.com/rss/top-news"},
     {"sumber": "Antara",        "kategori": "Politik",   "url": "https://www.antaranews.com/rss/politik.xml"},
     {"sumber": "Antara",        "kategori": "Ekonomi",   "url": "https://www.antaranews.com/rss/ekonomi"},
     {"sumber": "Antara",        "kategori": "Olahraga",  "url": "https://www.antaranews.com/rss/olahraga.xml"},
     {"sumber": "Detik",         "kategori": "Berita",    "url": "https://news.detik.com/berita/rss"},
     {"sumber": "Detik",         "kategori": "Ekonomi",   "url": "https://finance.detik.com/rss"},
-    {"sumber": "Kompas",        "kategori": "Berita",    "url": "https://rss.kompas.com/api/feed/social?apikey=bc58c81819dff4b8d5c53540a2fc7ffd83e6314a"},
     {"sumber": "Kontan",        "kategori": "Ekonomi",   "url": "https://rss.kontan.co.id/news/keuangan"},
     {"sumber": "Kontan",        "kategori": "Berita",    "url": "https://rss.kontan.co.id/news/nasional"},
     {"sumber": "Suara",         "kategori": "Berita",    "url": "https://www.suara.com/rss/news"},
@@ -33,7 +31,6 @@ FEEDS = [
     {"sumber": "Kumparan",      "kategori": "Berita",    "url": "https://lapi.kumparan.com/v2.0/rss/"},
     {"sumber": "VICE",          "kategori": "Berita",    "url": "https://www.vice.com/id_id/rss"},
     {"sumber": "Coconuts",      "kategori": "Berita",    "url": "http://coconuts.co/jakarta/feed/"},
-]
 ]
 PER_FEED = 8
 MAKS_TOTAL = 250

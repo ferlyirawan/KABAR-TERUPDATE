@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kabar Satu Layar</title>
+<style>
+:root{--bg:#f6f7f4;--surf:#fff;--ink:#16201c;--mute:#5d6b64;--line:#dfe4de;--acc:#0e7c66;--accink:#fff}
+@media (prefers-color-scheme:dark){:root{--bg:#121513;--surf:#1b1f1c;--ink:#eef2ee;--mute:#9aa8a0;--line:#2a312c;--acc:#5fd4b8;--accink:#06201a}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.4 system-ui,sans-serif}
+.wrap{max-width:680px;margin:0 auto;padding:0 16px 40px}
+h1{font-size:1.3rem;margin:18px 0 4px}
+.upd{color:var(--mute);font-size:.85rem;margin:0 0 12px}
+.tabs{display:flex;gap:8px;overflow-x:auto;padding:4px 0 14px;scrollbar-width:none}
+.tabs button{flex:none;border:1px solid var(--line);background:var(--surf);color:var(--ink);padding:8px 16px;border-radius:999px;font:inherit;font-size:.92rem;cursor:pointer}
+.tabs button[aria-pressed="true"]{background:var(--acc);color:var(--accink);border-color:var(--acc);font-weight:600}
+.hero{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none}
+.hcard{flex:0 0 86%;scroll-snap-align:start;position:relative;height:230px;border-radius:24px;overflow:hidden;color:#fff;text-decoration:none;display:flex;align-items:flex-end;background:#1d4e89 center/cover}
+.hcard .shade{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.8),rgba(0,0,0,.05) 70%)}
+.hcard .t{position:relative;padding:16px}
+.hcard h2{margin:0 0 6px;font-size:1.1rem;line-height:1.25}
+.meta{font-size:.8rem;color:var(--mute)}
+.hcard .meta{color:#fff;opacity:.85}
+.item{display:flex;gap:14px;justify-content:space-between;padding:16px 0;border-bottom:1px solid var(--line);color:inherit;text-decoration:none}
+.item .cat{font-size:.82rem;color:var(--mute);margin-bottom:2px}
+.item h3{margin:0 0 8px;font-size:1.05rem;line-height:1.3}
+.thumb{flex:none;width:108px;height:84px;border-radius:14px;background:#2d6a5a center/cover}
+.msg{color:var(--mute);padding:30px 0;text-align:center}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Kabar Satu Layar</h1>
+  <p class="upd" id="upd"></p>
+  <div class="tabs" id="tabs"></div>
+  <div class="hero" id="hero"></div>
+  <div id="list"></div>
+</div>
+<script>
+var news=[], cur="Untukmu";
+function esc(x){return (x||"").replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+function ago(ts){
+  var m=Math.floor((Date.now()/1000-ts)/60);
+  if(m<60) return Math.max(m,1)+" menit yang lalu";
+  var h=Math.floor(m/60);
+  return h<24 ? h+" jam yang lalu" : Math.floor(h/24)+" hari yang lalu";
+}
+function bg(u){return u?'style="background-image:url(\''+esc(u)+'\')"':''}
+function render(){
+  var cats=["Untukmu"].concat(Array.from(new Set(news.map(function(n){return n.kategori}))));
+  var tabs=document.getElementById("tabs"); tabs.innerHTML="";
+  cats.forEach(function(c){
+    var b=document.createElement("button"); b.textContent=c;
+    b.setAttribute("aria-pressed",c===cur);
+    b.onclick=function(){cur=c;render()};
+    tabs.appendChild(b);
+  });
+  var f=news.filter(function(n){return cur==="Untukmu"||n.kategori===cur});
+  var top=f.filter(function(n){return n.gambar}).slice(0,4);
+  var ids=new Set(top.map(function(n){return n.link}));
+  document.getElementById("hero").innerHTML=top.map(function(n){
+    return '<a class="hcard" target="_blank" rel="noopener" href="'+esc(n.link)+'" '+bg(n.gambar)+'><div class="shade"></div><div class="t"><h2>'+esc(n.judul)+'</h2><div class="meta">'+esc(n.sumber)+' · '+ago(n.waktu)+'</div></div></a>';
+  }).join("");
+  var rest=f.filter(function(n){return !ids.has(n.link)});
+  document.getElementById("list").innerHTML=rest.map(function(n){
+    return '<a class="item" target="_blank" rel="noopener" href="'+esc(n.link)+'"><div><div class="cat">'+esc(n.kategori)+'</div><h3>'+esc(n.judul)+'</h3><div class="meta">'+esc(n.sumber)+' · '+ago(n.waktu)+'</div></div><div class="thumb" '+bg(n.gambar)+'></div></a>';
+  }).join("") || '<div class="msg">Belum ada berita. Jalankan workflow "Perbarui berita" di tab Actions.</div>';
+}
+document.getElementById("list").innerHTML='<div class="msg">Memuat berita…</div>';
+fetch("news.json?t="+Date.now()).then(function(r){return r.json()}).then(function(d){
+  news=d.berita||[];
+  if(d.diperbarui) document.getElementById("upd").textContent="Diperbarui "+ago(d.diperbarui);
+  render();
+}).catch(function(){document.getElementById("list").innerHTML='<div class="msg">Gagal memuat berita.</div>'});
+</script>
+</body>
+</html>

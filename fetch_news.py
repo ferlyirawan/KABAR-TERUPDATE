@@ -5,18 +5,38 @@ import feedparser, requests
 
 # Tambah/ubah sumber di sini. Buka URL RSS di browser dulu untuk memastikan masih aktif.
 FEEDS = [
-    {"sumber": "Detik", "kategori": "Berita",    "url": "https://news.detik.com/rss"},
-    {"sumber": "Detik", "kategori": "Ekonomi",   "url": "https://finance.detik.com/rss"},
-    {"sumber": "Detik", "kategori": "SepakBola", "url": "https://sport.detik.com/sepakbola/rss"},
-    {"sumber": "Detik", "kategori": "Teknologi", "url": "https://inet.detik.com/rss"},
-    {"sumber": "Antara",       "kategori": "Politik",   "url": "https://www.antaranews.com/rss/politik.xml"},
-    {"sumber": "Antara",       "kategori": "Ekonomi",   "url": "https://www.antaranews.com/rss/ekonomi.xml"},
-    {"sumber": "Antara",       "kategori": "Olahraga",  "url": "https://www.antaranews.com/rss/olahraga.xml"},
+    FEEDS = [
+    {"sumber": "Antara",        "kategori": "Berita",    "url": "https://www.antaranews.com/rss/top-news"},
+    {"sumber": "Antara",        "kategori": "Politik",   "url": "https://www.antaranews.com/rss/politik.xml"},
+    {"sumber": "Antara",        "kategori": "Ekonomi",   "url": "https://www.antaranews.com/rss/ekonomi"},
+    {"sumber": "Antara",        "kategori": "Olahraga",  "url": "https://www.antaranews.com/rss/olahraga.xml"},
+    {"sumber": "Detik",         "kategori": "Berita",    "url": "https://news.detik.com/berita/rss"},
+    {"sumber": "Detik",         "kategori": "Ekonomi",   "url": "https://finance.detik.com/rss"},
+    {"sumber": "Kompas",        "kategori": "Berita",    "url": "https://rss.kompas.com/api/feed/social?apikey=bc58c81819dff4b8d5c53540a2fc7ffd83e6314a"},
+    {"sumber": "Kontan",        "kategori": "Ekonomi",   "url": "https://rss.kontan.co.id/news/keuangan"},
+    {"sumber": "Kontan",        "kategori": "Berita",    "url": "https://rss.kontan.co.id/news/nasional"},
+    {"sumber": "Suara",         "kategori": "Berita",    "url": "https://www.suara.com/rss/news"},
+    {"sumber": "Suara",         "kategori": "Ekonomi",   "url": "https://www.suara.com/rss/bisnis"},
+    {"sumber": "Liputan6",      "kategori": "Berita",    "url": "https://feed.liputan6.com/rss/news"},
+    {"sumber": "Tempo",         "kategori": "Berita",    "url": "http://rss.tempo.co/nasional"},
+    {"sumber": "Tempo",         "kategori": "Ekonomi",   "url": "http://rss.tempo.co/bisnis"},
+    {"sumber": "CNN Indonesia", "kategori": "Berita",    "url": "https://www.cnnindonesia.com/nasional/rss"},
+    {"sumber": "CNN Indonesia", "kategori": "Ekonomi",   "url": "https://www.cnnindonesia.com/ekonomi/rss"},
     {"sumber": "CNN Indonesia", "kategori": "Teknologi", "url": "https://www.cnnindonesia.com/teknologi/rss"},
-    {"sumber": "Suara",        "kategori": "Hiburan",   "url": "https://www.suara.com/rss/entertainment"},
+    {"sumber": "CNBC Indonesia","kategori": "Berita",    "url": "https://www.cnbcindonesia.com/news/rss"},
+    {"sumber": "CNBC Indonesia","kategori": "Ekonomi",   "url": "https://www.cnbcindonesia.com/market/rss/"},
+    {"sumber": "Republika",     "kategori": "Berita",    "url": "https://www.republika.co.id/rss/nasional/"},
+    {"sumber": "Republika",     "kategori": "Ekonomi",   "url": "https://www.republika.co.id/rss/ekonomi/"},
+    {"sumber": "Media Indonesia","kategori": "Berita",   "url": "https://mediaindonesia.com/feed"},
+    {"sumber": "JawaPos",       "kategori": "Berita",    "url": "https://www.jawapos.com/nasional/rss"},
+    {"sumber": "JawaPos",       "kategori": "Ekonomi",   "url": "https://www.jawapos.com/ekonomi/rss"},
+    {"sumber": "Kumparan",      "kategori": "Berita",    "url": "https://lapi.kumparan.com/v2.0/rss/"},
+    {"sumber": "VICE",          "kategori": "Berita",    "url": "https://www.vice.com/id_id/rss"},
+    {"sumber": "Coconuts",      "kategori": "Berita",    "url": "http://coconuts.co/jakarta/feed/"},
+]
 ]
 PER_FEED = 8
-MAKS_TOTAL = 80
+MAKS_TOTAL = 250
 HEADERS = {"User-Agent": "Mozilla/5.0 (KabarSatuLayar)"}
 
 

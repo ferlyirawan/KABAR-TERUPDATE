@@ -5,6 +5,10 @@ import feedparser, requests
 
 # Tambah/ubah sumber di sini. Buka URL RSS di browser dulu untuk memastikan masih aktif.
 FEEDS = [
+    {"sumber": "Detik", "kategori": "Berita",    "url": "https://news.detik.com/rss"},
+    {"sumber": "Detik", "kategori": "Ekonomi",   "url": "https://finance.detik.com/rss"},
+    {"sumber": "Detik", "kategori": "SepakBola", "url": "https://sport.detik.com/sepakbola/rss"},
+    {"sumber": "Detik", "kategori": "Teknologi", "url": "https://inet.detik.com/rss"},
     {"sumber": "Antara",       "kategori": "Politik",   "url": "https://www.antaranews.com/rss/politik.xml"},
     {"sumber": "Antara",       "kategori": "Ekonomi",   "url": "https://www.antaranews.com/rss/ekonomi.xml"},
     {"sumber": "Antara",       "kategori": "Olahraga",  "url": "https://www.antaranews.com/rss/olahraga.xml"},

@@ -4,7 +4,7 @@ from concurrent.futures import ThreadPoolExecutor
 import feedparser, requests
 
 # Tambah/ubah sumber di sini. Buka URL RSS di browser dulu untuk memastikan masih aktif.
-FEEDS=
+FEEDS = [
     {"sumber": "Detik",         "kategori": "Berita",    "url": "https://news.detik.com/berita/rss"},
     {"sumber": "Detik",         "kategori": "Ekonomi",   "url": "https://finance.detik.com/rss"},
     {"sumber": "Kontan",        "kategori": "Ekonomi",   "url": "https://rss.kontan.co.id/news/keuangan"},
